@@ -1,12 +1,10 @@
-import sys
-
-import datetime
 import os
-from Sources_new.init import address_mapping, logs, contract_type_mapping, regime_type_mapping, position_mapping
+import sys
 from pyPythonRPA.Robot import pythonRPA
+from Sources_new.init import address_mapping, logs, contract_type_mapping, regime_type_mapping, position_mapping
 
 
-class Priem():
+class Priem:
 
     def __init__(self, period, credentials, oneC_app):
         self.period = period
@@ -17,97 +15,6 @@ class Priem():
         self.till = period["till"]
 
         self.employees_arr = []
-
-    def time_delay(self, time=0.5):
-        pythonRPA.time.delay(time)
-
-    def focus_1C(self):
-        try:
-            pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы","class_name": "V8TopLevelFrame",
-                                   "backend": "uia"}]).wait_appear(15)
-            pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы", "class_name": "V8TopLevelFrame",
-                                   "backend": "uia"}]).set_focus()
-            pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы","class_name": "V8TopLevelFrame",
-                                   "backend": "uia"}]).maximize()
-        except:
-            pass
-
-    def copy_data(self):
-        self.time_delay()
-        pythonRPA.keyboard.press("ctrl+a")
-        self.time_delay()
-        pythonRPA.keyboard.press("ctrl+c")
-        self.time_delay()
-
-    def auth(self):
-        pythonRPA.bySelector([{"title": "Запуск 1С:Предприятия", "class_name": "V8TopLevelFrameTaxiStarter",
-                               "backend": "uia"}]).wait_appear(20)
-
-        # --- Into Ales base ---
-        self.time_delay()
-        pythonRPA.bySelector([{"title": "Запуск 1С:Предприятия", "class_name": "V8TopLevelFrameTaxiStarter",
-                               "backend": "uia"}]).set_focus()
-
-        pythonRPA.bySelector([{"title": "Запуск 1С:Предприятия", "class_name": "V8TopLevelFrameTaxiStarter", "backend": "uia"}, {"ctrl_index": 1}, {"ctrl_index": 1}, {"ctrl_index": 0}, {"ctrl_index": 8},
-                              {"ctrl_index": 0}]).double_click()
-
-        pythonRPA.bySelector([{"title": "Доступ к информационной базе", "class_name": "V8NewLocalFrameBaseWnd",
-                               "backend": "uia"}]).wait_appear(20)
-
-        # --- Auth ---
-        self.time_delay()
-        pythonRPA.bySelector([{"title": "Доступ к информационной базе", "class_name": "V8NewLocalFrameBaseWnd",
-                               "backend": "uia"}]).set_focus()
-
-        pythonRPA.bySelector([{"title": "Доступ к информационной базе", "class_name": "V8NewLocalFrameBaseWnd", "backend": "uia"},{"title": "1С:Предприятие"}, {"ctrl_index": 1}, {"ctrl_index": 1}, {"ctrl_index": 0},
-                              {"ctrl_index": 2}]).click()
-        self.time_delay()
-        pythonRPA.keyboard.write(self.login)
-
-        self.time_delay()
-        pythonRPA.bySelector([{"title": "Доступ к информационной базе", "class_name": "V8NewLocalFrameBaseWnd", "backend": "uia"},{"title": "1С:Предприятие"}, {"ctrl_index": 1}, {"ctrl_index": 1}, {"ctrl_index": 0},
-                              {"ctrl_index": 3}]).click()
-        self.time_delay()
-        pythonRPA.keyboard.write(self.password)
-
-        self.time_delay()
-        pythonRPA.bySelector([{"title": "Доступ к информационной базе", "class_name": "V8NewLocalFrameBaseWnd", "backend": "uia"},{"title": "1С:Предприятие"}, {"ctrl_index": 1}, {"ctrl_index": 1}, {"ctrl_index": 0},
-                              {"title": "OK"}]).click()
-
-    def open_sotrudniki(self):
-        pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы","class_name": "V8TopLevelFrame", "backend": "uia"}, {"ctrl_index": 1},{"ctrl_index": 0}, {"ctrl_index": 3}, {"ctrl_index": 0},
-                              {"title": "Главное меню"}, {"title": "Кадровый учет"}]).click()
-        pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы", "class_name": "V8TopLevelFrame", "backend": "uia"}, {"ctrl_index": 0},
-                              {"title": "Кадровый учет"}, {"title": "Сотрудники"}]).wait_appear(10)
-        self.time_delay(1)
-        pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы","class_name": "V8TopLevelFrame", "backend": "uia"}, {"ctrl_index": 0},
-                              {"title": "Кадровый учет"}, {"title": "Сотрудники"}]).click()
-        pythonRPA.bySelector([{"title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы","class_name": "V8TopLevelFrame", "backend": "uia"}, {"ctrl_index": 1},{"ctrl_index": 16}, {"ctrl_index": 1}, {"ctrl_index": 0}, {"ctrl_index": 0},{"ctrl_index": 0}, {"ctrl_index": 3}, {"ctrl_index": 0}, {"ctrl_index": 0},{"ctrl_index": 0}, {"ctrl_index": 0},
-                              {"title": "Головной офис Наименование"}]).wait_appear(180)
-        self.time_delay()
-        pythonRPA.keyboard.press("ctrl+tab")
-        self.time_delay()
-        pythonRPA.keyboard.press("home")
-        self.time_delay()
-
-    def find_employee_from_list(self, window_index_1, employee):
-        try_index = 0
-        while True:
-            if try_index == 10:
-                break
-            try:
-                pythonRPA.bySelector([{
-                    "title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы",
-                    "class_name": "V8TopLevelFrame", "backend": "uia"}, {"ctrl_index": 1},
-                    {"ctrl_index": 16}, {"ctrl_index": window_index_1}, {"ctrl_index": 0}, {"ctrl_index": 0},
-                    {"ctrl_index": 0}, {"ctrl_index": 0},
-                    {"title": str(employee[5]) + " Сотрудники"}]).double_click()
-                break
-            except:
-                try_index = try_index + 1
-                pythonRPA.time.delay(1)
-                pythonRPA.keyboard.press("pgdown")
-                pythonRPA.time.delay(1)
 
     def start(self):
         self.oneC_app.start()
@@ -140,12 +47,12 @@ class Priem():
         self.time_delay()
         pythonRPA.keyboard.press("down", 7, 0.3)
         pythonRPA.keyboard.press("tab", 1, 0.3)
-        pythonRPA.keyboard.write(self.since)
+        pythonRPA.keyboard.write(str(self.since))
         self.time_delay()
         pythonRPA.keyboard.press("tab", 1, 0.3)
         pythonRPA.keyboard.press("down", 7, 0.3)
         pythonRPA.keyboard.press("tab", 1, 0.3)
-        pythonRPA.keyboard.write(self.till)
+        pythonRPA.keyboard.write(str(self.till))
         self.time_delay()
         pythonRPA.keyboard.press("ctrl+enter")
         self.time_delay()
@@ -196,9 +103,9 @@ class Priem():
         print(len(employees_list))
 
         # --- Iteration, ---
-        for employee in employees_list[17:]:  # 3 -> 0
+        for employee in employees_list:
             try:
-                if employees_list.index(employee) == 17:
+                if employees_list.index(employee) == 0:
                     self.open_sotrudniki()
                 employee_dict = {'ФИО': employee[5]}
                 window_index_1 = 1
