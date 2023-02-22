@@ -119,6 +119,6 @@ def find_employee_from_list(window_index_1, employee):
             break
         except:
             try_index = try_index + 1
-            pythonRPA.time.delay(1)
+            time_delay(1)
             pythonRPA.keyboard.press("pgdown")
-            pythonRPA.time.delay(1)
+            time_delay(1)

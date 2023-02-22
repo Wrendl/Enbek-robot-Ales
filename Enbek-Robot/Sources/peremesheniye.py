@@ -273,7 +273,6 @@ def peremesheniye(period, credentials, oneC_app):
                         pythonRPA.time.delay(1)
                         pythonRPA.keyboard.press("pgdown")
                         pythonRPA.time.delay(1)
-                pythonRPA.time.delay(0.3)
                 try:
                     pythonRPA.bySelector([{
                         "title": "1С:Предприятие - Управление производственным предприятием для Казахстана, редакция 1.0 / АлЭС / Основная рабочая база / Төрепаш Ажар Қанатқызы",
@@ -323,6 +322,7 @@ def peremesheniye(period, credentials, oneC_app):
                             count = count + 1
                             pythonRPA.time.delay(5)
                 cnt = 1
+                pythonRPA.time.delay(0.3)
                 pythonRPA.time.delay(1)
                 pythonRPA.keyboard.press("down", 13, 0.3)
                 pythonRPA.keyboard.press("enter")

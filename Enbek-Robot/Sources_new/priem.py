@@ -105,8 +105,11 @@ class Priem:
         # --- Iteration, ---
         for employee in employees_list:
             try:
+                # --- Open sotrudniki ---
                 if employees_list.index(employee) == 0:
                     self.open_sotrudniki()
+
+                # --- Find employee from list ---
                 employee_dict = {'ФИО': employee[5]}
                 window_index_1 = 1
 
